@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Windows Live Messenger</title>
+    <link rel="icon" type="image/png" href="assets/general/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        position: relative;
+      }
+
+      body {
+        height: 100%;
+        font-family: "Tahoma", sans-serif;
+        font-size: 8pt;
+      }
+
+      a {
+        color: #0088e4;
+      }
+
+      .main {
+        display: flex;
+        height: 100vh;
+        min-height: 440px;
+        padding: 10px;
+
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="defaults.css" />
+    <link rel="stylesheet" type="text/css" href="contacts.css" />
+    <link rel="stylesheet" type="text/css" href="chat.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
