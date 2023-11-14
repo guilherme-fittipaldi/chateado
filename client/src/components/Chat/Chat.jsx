@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import style from "./Chat.module.css";
 
-export default function Chat({ socket, username }) {
+export default function Chat({ socket, username, image }) {
   const bottomRef = useRef();
   const messageRef = useRef();
   const [messageList, setMessageList] = useState([]);
+  const [profilePictures, setProfilePictures] = useState({});
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
@@ -52,7 +53,14 @@ export default function Chat({ socket, username }) {
             <img id="title" src="assets/general/title_text.png" />
           </div>
           <div className={style["user-info"]}>
-            <img id="avatar" src="assets/01CAT.jpg" alt="Profile Picture" />
+            <span style={{ width: "48px", height: "48px" }}>
+              <img
+                id="avatar"
+                src={image}
+                alt={`${username}'s Profile`}
+                className={style["profile-picture"]}
+              />
+            </span>
             <img id="frame" src="assets/background/frame_48.png" />
             <div className={style["profile"]}>
               <button className={style["aerobutton"]} id="user">
@@ -82,8 +90,7 @@ export default function Chat({ socket, username }) {
                 border: "2px solid transparent",
                 background:
                   "url(assets/contacts-window/1480.png) no-repeat center",
-              }}
-            ></button>
+              }}></button>
             <button
               className={style["contactaction"]}
               style={{
@@ -91,8 +98,7 @@ export default function Chat({ socket, username }) {
                 border: "2px solid transparent",
                 background:
                   "url(assets/contacts-window/978.png) no-repeat center",
-              }}
-            ></button>
+              }}></button>
             <button
               className={style["contactaction"]}
               style={{
@@ -100,8 +106,7 @@ export default function Chat({ socket, username }) {
                 border: "2px solid transparent",
                 background:
                   "url(assets/contacts-window/1484.png) no-repeat center",
-              }}
-            ></button>
+              }}></button>
           </ul>
           <ul className={style["iconbar"]} id="right">
             <button
@@ -114,8 +119,7 @@ export default function Chat({ socket, username }) {
                 alignItems: "center",
               }}
               className={style["right-contactaction"]}
-              id="moreoptions"
-            >
+              id="moreoptions">
               <img
                 src="assets/contacts-window/1489.png"
                 style={{ height: "16px" }}
@@ -132,8 +136,7 @@ export default function Chat({ socket, username }) {
                 border: "2px solid transparent",
                 background:
                   "url(assets/contacts-window/329.png) no-repeat center",
-              }}
-            ></button>
+              }}></button>
           </ul>
         </div>
         <div className={style["search"]}>
@@ -147,15 +150,13 @@ export default function Chat({ socket, username }) {
             style={{
               background:
                 "url(assets/contacts-window/1131.png) no-repeat center",
-            }}
-          ></button>
+            }}></button>
           <button
             className={style["searchbar-btn"]}
             style={{
               background:
                 "url(assets/contacts-window/1132.png) no-repeat center",
-            }}
-          ></button>
+            }}></button>
         </div>
         <ul className={style["contact-list"]}>
           <button className={style["listitem headerlist"]}>
@@ -176,8 +177,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               i'm sad all day until i get to talk with friends, online friends
               that is
             </p>
@@ -197,8 +197,7 @@ export default function Chat({ socket, username }) {
             />
             <a
               href="http://notimplemented.lol"
-              className={style["contact-text message"]}
-            >
+              className={style["contact-text message"]}>
               Black Eyed Peas - I Gotta Feeling
             </a>
           </button>
@@ -213,8 +212,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               working on writing for ao3!!
             </p>
           </button>
@@ -229,8 +227,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               i'm sad all day until i get to talk with friends, online friends
               that is
             </p>
@@ -246,8 +243,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               i'm sad all day until i get to talk with friends, online friends
               that is
             </p>
@@ -263,8 +259,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               working on writing for ao3!!
             </p>
           </button>
@@ -279,8 +274,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               i'm sad all day until i get to talk with friends, online friends
               that is
             </p>
@@ -296,8 +290,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               i'm sad all day until i get to talk with friends, online friends
               that is
             </p>
@@ -313,8 +306,7 @@ export default function Chat({ socket, username }) {
             </span>
             <p
               className={style["contact-text message"]}
-              style={{ color: "darkgray" }}
-            >
+              style={{ color: "darkgray" }}>
               working on writing for ao3!!
             </p>
           </button>
@@ -370,49 +362,42 @@ export default function Chat({ socket, username }) {
                 style={{
                   background:
                     "url(assets/chat-window/1441.png) no-repeat center",
-                }}
-              ></button>
+                }}></button>
               <button
                 className={style["aerobutton chataction"]}
                 style={{
                   background:
                     "url(assets/chat-window/1444.png) no-repeat center",
-                }}
-              ></button>
+                }}></button>
               <button
                 className={style["aerobutton chataction"]}
                 style={{
                   background:
                     "url(assets/chat-window/1447.png) no-repeat center",
-                }}
-              ></button>
+                }}></button>
               <button
                 className={style["aerobutton chataction"]}
                 style={{
                   background:
                     "url(assets/chat-window/1442.png) no-repeat center",
-                }}
-              ></button>
+                }}></button>
               <button
                 className={style["aerobutton chataction"]}
                 style={{
                   background:
                     "url(assets/chat-window/1443.png) no-repeat center",
-                }}
-              ></button>
+                }}></button>
               <button
                 className={style["aerobutton chataction"]}
                 style={{
                   background:
                     "url(assets/chat-window/326.png) no-repeat center",
-                }}
-              ></button>
+                }}></button>
             </ul>
             <ul className={style["chatnav"]} id="right">
               <button
                 className={style["aerobutton chataction smallarrowbtn"]}
-                id="moreoptions"
-              >
+                id="moreoptions">
                 <img
                   src="assets/chat-window/1489.png"
                   style={{ height: "16px" }}
@@ -427,8 +412,7 @@ export default function Chat({ socket, username }) {
                 style={{
                   background:
                     "url(assets/chat-window/329.png) no-repeat center",
-                }}
-              ></button>
+                }}></button>
             </ul>
           </div>
         </div>
@@ -441,26 +425,12 @@ export default function Chat({ socket, username }) {
                   Alto is Busy and may not reply
                 </p>
               </div>
-              {/* // {messageList.map((message, index) => (
-              //   <div
-              //     className={`${style["message-container"]} ${
-              //       message.authorId === socket.id && style["message-mine"]
-              //     }`}
-              //     key={index}
-              //   >
-              //     <div className={style["message-author">
-              //       <strong>{message.author}</strong>
-              //     </div>
-              //     <div className={style["message-text">{message.text}</div>
-              //   </div>
-              // ))} */}
               <div ref={bottomRef} />
               <div
                 className={style["chattext"]}
                 id="display"
                 readonly
-                style={{ "background-color": "white" }}
-              >
+                style={{ "background-color": "white" }}>
                 {messageList.map((msg) => (
                   <p>
                     <strong>{msg?.author}: </strong>
@@ -475,8 +445,7 @@ export default function Chat({ socket, username }) {
             <div id="send">
               <ul id="options">
                 <button
-                  className={style["aerobutton textoption smallarrowbtn"]}
-                >
+                  className={style["aerobutton textoption smallarrowbtn"]}>
                   <img src="assets/chat-window/412.png" />
                   <img
                     className={style["arrowdown"]}
@@ -484,8 +453,7 @@ export default function Chat({ socket, username }) {
                   />
                 </button>
                 <button
-                  className={style["aerobutton textoption smallarrowbtn"]}
-                >
+                  className={style["aerobutton textoption smallarrowbtn"]}>
                   <img src="assets/chat-window/1487.png" />
                   <img
                     className={style["arrowdown"]}
@@ -497,37 +465,32 @@ export default function Chat({ socket, username }) {
                   style={{
                     background:
                       "url(assets/chat-window/414.png) no-repeat center",
-                  }}
-                ></button>
+                  }}></button>
                 <button
                   className={style["aerobutton textoption noarrow"]}
                   style={{
                     background:
                       "url(assets/chat-window/992.png) no-repeat center",
-                  }}
-                ></button>
+                  }}></button>
                 <button
                   className={style["textoption"]}
                   style={{
                     background:
                       "url(assets/chat-window/20204.png) no-repeat center",
                     border: "none",
-                  }}
-                ></button>
+                  }}></button>
                 <button
                   className={style["aerobutton textoption noarrow"]}
                   style={{
                     background:
                       "url(assets/chat-window/411.png) no-repeat center",
-                  }}
-                ></button>
+                  }}></button>
               </ul>
               <textarea
                 className={style["chattext"]}
                 ref={messageRef}
                 id="write"
-                placeholder="Type your message here..."
-              ></textarea>
+                placeholder="Type your message here..."></textarea>
               <div id="bottomtabs">
                 <button className={style["editortab selected"]}>
                   <img src="assets/chat-window/963.png" />
@@ -540,8 +503,7 @@ export default function Chat({ socket, username }) {
                     id="sendbutton"
                     onClick={() => {
                       handleSubmit();
-                    }}
-                  >
+                    }}>
                     Send
                   </button>
                   <button id="search" disabled></button>
@@ -566,20 +528,23 @@ export default function Chat({ socket, username }) {
                   style={{
                     background:
                       "url(assets/chat-window/268.png) no-repeat center",
-                  }}
-                ></button>
+                  }}></button>
                 <button
                   className={style["aerobutton avataraction"]}
                   style={{
                     background:
                       "url(assets/chat-window/1457.png) no-repeat center",
                     float: "right",
-                  }}
-                ></button>
+                  }}></button>
               </div>
             </div>
             <div id="bottomavatar">
-              <img className={style["avatar"]} src="assets/01CAT.jpg" alt="" />
+              <img
+                className={style["avatar"]}
+                style={{ width: "96px", height: "96px", objectFit: "cover" }}
+                src={image}
+                alt=""
+              />
               <img
                 className={style["frame"]}
                 src="assets/background/frame_96.png"
@@ -591,8 +556,7 @@ export default function Chat({ socket, username }) {
                     background:
                       "url(assets/chat-window/1457.png) no-repeat center",
                     float: "right",
-                  }}
-                ></button>
+                  }}></button>
               </div>
             </div>
           </div>
@@ -604,26 +568,3 @@ export default function Chat({ socket, username }) {
     </div>
   );
 }
-
-//{" "}
-{
-  /* // <div>
-    // //   <div className={style['chat-container']}>
-    // //     <div className={style["chat-body"]}>'
-    // //     {
-    // //       messageList.map((message,index) => (
-    // //         <div className={`${style["message-container"]} ${message.authorId === socket.id && style["message-mine"]}`} key={index}>
-    // //           <div className={style["message-author"><strong>{message.author}</strong></div>
-    // //           <div className={style["message-text">{message.text}</div>
-    // //         </div>
-    // //       ))
-    // //     }
-    // //     <div ref={bottomRef} />
-    // //     </div>
-    // //     <div className={style["chat-footer"]}>
-    // //       <Input inputRef={messageRef} placeholder='Mensagem' onKeyDown={(e)=>getEnterKey(e)} fullWidth />
-    // //       <SendIcon sx={{m:1, cursor: 'pointer'}} onClick={()=>handleSubmit()} color="primary" />
-    // //     </div>
-    // //   </div>*/
-}
-//  </div>
