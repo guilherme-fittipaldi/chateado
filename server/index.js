@@ -1,6 +1,18 @@
-const app = require("express")();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server, { cors: { origin: "*" } });
+const fs = require("fs");
+const http = require("http");
+const express = require("express");
+const socketIO = require("socket.io");
+
+const app = express();
+const server = http.createServer(
+  {
+    key: fs.readFileSync("C:/Users/guilh/chave-privada.pem"),
+    cert: fs.readFileSync("C:/Users/guilh/certificado.pem"),
+  },
+  app
+);
+
+const io = socketIO(server, { cors: { origin: "*" } });
 
 const PORT = 3001;
 
@@ -15,6 +27,8 @@ io.on("connection", (socket) => {
     socket.data.username = username;
   });
 
+  console.log("Usuário:", socket.data.username);
+
   socket.on("message", (text) => {
     io.emit("receive_message", {
       text,
@@ -25,4 +39,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => console.log("Server running..."));
+server.listen(PORT, () => console.log("Server running on port", PORT));
