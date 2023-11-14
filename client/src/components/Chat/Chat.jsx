@@ -457,59 +457,21 @@ export default function Chat({ socket }) {
               //   </div>
               // ))} */}
               <div ref={bottomRef} />
-              <textarea className={style["chattext"]} id="display" readonly>
-                Lorem ipsum dolor sit amet, dicta dolor instructior no ius,
-                congue melius qualisque in sed. Ne impedit accusam assueverit
-                duo. Ex pro sumo eros offendit. Quo iriure salutandi at. His
-                dicta viris dolores cu, ut sed recusabo elaboraret. At volutpat
-                consulatu sed, cum id munere atomorum. Albucius antiopam et pro,
-                has semper iracundia ne. Cu sed utamur molestiae. Duis novum
-                omittam pri ne. Ex sadipscing temporibus pri, assum utamur
-                diceret mei no. Clita splendide eu vel, sumo dicta graeco has
-                ut. Et nulla expetenda pertinacia vim, pri elit inciderint ea.
-                Ad facer percipitur voluptatibus cum. Id vis reque consetetur,
-                ludus tollit urbanitas id sit, usu dicunt regione scriptorem ne.
-                Copiosae sapientem ne pri, assum tempor facete vel no. Et justo
-                impedit referrentur his, ne mel prima prodesset vituperata. Ne
-                posse mundi expetenda eam, iisque omittam ea has. Suas affert
-                iudicabit cu vix, verear interesset te sea. An est nusquam
-                ancillae, cetero imperdiet et eam, tale meliore ea sea. Dicit
-                labores ne mel, ne qui paulo intellegat. Quo laudem fabulas
-                phaedrum ea, mel te persecuti honestatis. Duo eu prima legere
-                sadipscing. Ei assentior gloriatur expetendis mea, an mea
-                fuisset eloquentiam consequuntur. Nisl iracundia ne quo. Quo
-                dicat concludaturque ut, graeci tractatos an eam. Libris latine
-                persius in eos, eu dicit elitr quidam quo, at debet ignota
-                adolescens ius. An diam debitis mel, est te indoctum
-                complectitur. Id libris praesent interesset vim, has tamquam
-                aliquam ne, suas debitis et duo. Molestie expetendis at vel.
-                Esse veniam his id, mucius placerat ne nec, ne nam possim
-                reprehendunt. Dictas sanctus eos te. Mel elaboraret
-                mediocritatem ne, nec eu tritani moderatius. Saperet laboramus
-                id mea, zril libris urbanitas mei id, ius at nobis oportere
-                consetetur. Modo signiferumque cu quo, cu quo prima albucius
-                rationibus. Mel id minimum delicatissimi. Usu ignota nonumes
-                civibus at, at tempor patrioque moderatius nam, postulant
-                gloriatur mel no. Sed fabellas maiestatis cu, cu per impedit
-                epicuri, cu vim utroque impedit quaerendum. Ut eam aeterno
-                vivendum vituperata, pri utroque placerat no, cum et latine
-                voluptua. Eam veniam dignissim id. Audiam prodesset nec te. At
-                sit clita officiis intellegat. Facete verear invenire sed ad. No
-                diam perfecto appellantur vix, ne cum malis option mnesarchum,
-                sit in decore eripuit epicuri. Ipsum summo eirmod ex has. His
-                habeo reprehendunt at, duo ei elitr imperdiet. Per in quaeque
-                veritus facilisis. Duo ea duis definiebas repudiandae, per
-                nemore meliore comprehensam ei. Mel recusabo consulatu ut.
-                Timeam definitionem duo id, cu nam elitr admodum explicari. Pro
-                delenit senserit convenire id, nec ad iisque aliquip eripuit.
-                Est ut dicta disputando, postea legimus eos eu. Est ea harum
-                platonem, cu docendi reprehendunt his. Has ubique nostrud at,
-                vix doming iracundia ne. Summo primis inciderint duo at, vim ex
-                tantas apeirian abhorreant. Te posse nominavi est, decore
-                expetenda in cum, has constituto elaboraret et. Ut appetere
-                conclusionemque quo, an option fuisset efficiendi vel, dicant
-                copiosae usu an.
-              </textarea>
+              <div
+                className={style["chattext"]}
+                id="display"
+                readonly
+                style={{ "background-color": "white" }}
+              >
+                {messageList.map((msg) => (
+                  <p>
+                    <strong>{msg?.author}: </strong>
+                    {msg?.text}
+                    <br />
+                    <span>{msg?.time}</span>
+                  </p>
+                ))}
+              </div>
             </div>
             <div id="handle"></div>
             <div id="send">
@@ -564,6 +526,7 @@ export default function Chat({ socket }) {
               </ul>
               <textarea
                 className={style["chattext"]}
+                ref={messageRef}
                 id="write"
                 placeholder="Type your message here..."
               ></textarea>
@@ -575,7 +538,12 @@ export default function Chat({ socket }) {
                   <img src="assets/chat-window/961.png" />
                 </button>
                 <div>
-                  <button id="sendbutton" disabled>
+                  <button
+                    id="sendbutton"
+                    onClick={() => {
+                      handleSubmit();
+                    }}
+                  >
                     Send
                   </button>
                   <button id="search" disabled></button>

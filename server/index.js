@@ -20,6 +20,7 @@ io.on("connection", (socket) => {
       text,
       authorId: socket.id,
       author: socket.data.username,
+      time: `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`,
     });
   });
 });
