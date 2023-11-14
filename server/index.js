@@ -1,8 +1,19 @@
-const app = require("express")();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server, { cors: { origin: "*" } });
+const fs = require("fs");
+const https = require("https");
+const express = require("express");
+const { Server: IOServer } = require("socket.io");
 
+const app = express();
+const server = https.createServer(
+  {
+    key: fs.readFileSync("./certs/chave-privada.pem"),
+    cert: fs.readFileSync("./certs/certificado.pem"),
+  },
+  app
+);
 const PORT = 3001;
+
+const io = new IOServer(server, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
   console.log("Usuário conectado!", socket.id);
@@ -27,4 +38,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT, () => console.log("Server running..."));
+server.listen(PORT, () => console.log("Server running on port", PORT));

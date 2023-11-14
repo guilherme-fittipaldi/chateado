@@ -439,7 +439,7 @@ export default function Chat({ socket, username, image }) {
                 readonly
                 style={{ "background-color": "white" }}>
                 {messageList.map((msg) => (
-                  <p>
+                  <p key={msg.time}>
                     <strong>{msg?.author}: </strong>
                     {msg?.text}
                     <br />
