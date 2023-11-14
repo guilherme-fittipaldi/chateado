@@ -36,6 +36,7 @@ export default function Join({
     });
 
     setSocket(socket);
+    setUsername(username);
     setChatVisibility(true);
   };
 
