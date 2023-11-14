@@ -1,20 +1,19 @@
 const fs = require("fs");
-const http = require("http");
+const https = require("https");
 const express = require("express");
-const socketIO = require("socket.io");
+const { Server: IOServer } = require("socket.io");
 
 const app = express();
-const server = http.createServer(
+const server = https.createServer(
   {
-    key: fs.readFileSync("C:/Users/guilh/chave-privada.pem"),
-    cert: fs.readFileSync("C:/Users/guilh/certificado.pem"),
+    key: fs.readFileSync("./certs/chave-privada.pem"),
+    cert: fs.readFileSync("./certs/certificado.pem"),
   },
   app
 );
-
-const io = socketIO(server, { cors: { origin: "*" } });
-
 const PORT = 3001;
+
+const io = new IOServer(server, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
   console.log("Usuário conectado!", socket.id);
@@ -26,8 +25,6 @@ io.on("connection", (socket) => {
   socket.on("set_username", (username) => {
     socket.data.username = username;
   });
-
-  console.log("Usuário:", socket.data.username);
 
   socket.on("message", (text) => {
     io.emit("receive_message", {
