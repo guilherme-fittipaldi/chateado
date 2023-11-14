@@ -1,9 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Input } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
 import style from "./Chat.module.css";
 
-export default function Chat({ socket }) {
+export default function Chat({ socket, username }) {
   const bottomRef = useRef();
   const messageRef = useRef();
   const [messageList, setMessageList] = useState([]);
@@ -58,7 +56,7 @@ export default function Chat({ socket }) {
             <img id="frame" src="assets/background/frame_48.png" />
             <div className={style["profile"]}>
               <button className={style["aerobutton"]} id="user">
-                <h3 className={style["user-h3"]}>AndroidWG</h3>
+                <h3 className={style["user-h3"]}>{username}</h3>
                 <p id="status">(Busy)</p>
                 <img
                   className={style["arrowdown"]}
