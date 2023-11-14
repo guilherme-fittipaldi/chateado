@@ -5,14 +5,21 @@ export default function Chat({ socket, username, image }) {
   const bottomRef = useRef();
   const messageRef = useRef();
   const [messageList, setMessageList] = useState([]);
-  const [profilePictures, setProfilePictures] = useState({});
+  const [clients, setClients] = useState();
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((current) => [...current, data]);
     });
 
-    return () => socket.off("receive_message");
+    socket.on("user_count", (data) => {
+      setClients(data);
+    });
+
+    return () => {
+      socket.off("receive_message");
+      socket.off("user_count");
+    };
   }, [socket]);
 
   useEffect(() => {
@@ -56,7 +63,7 @@ export default function Chat({ socket, username, image }) {
             <span style={{ width: "48px", height: "48px" }}>
               <img
                 id="avatar"
-                src={image}
+                src={image ? image : "assets/chat-window/1531.png"}
                 alt={`${username}'s Profile`}
                 className={style["profile-picture"]}
               />
@@ -164,7 +171,7 @@ export default function Chat({ socket, username, image }) {
               className={style["arrow"]}
               src="assets/general/arrow_placeholder.png"
             />
-            <b>Online ( 4 )</b>
+            <b>Online ( {clients ?? "0"} )</b>
           </button>
           <button className={style["listitem contact"]}>
             <img
@@ -542,7 +549,7 @@ export default function Chat({ socket, username, image }) {
               <img
                 className={style["avatar"]}
                 style={{ width: "96px", height: "96px", objectFit: "cover" }}
-                src={image}
+                src={image ? image : "assets/chat-window/1531.png"}
                 alt=""
               />
               <img

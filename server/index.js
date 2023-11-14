@@ -7,6 +7,8 @@ const PORT = 3001;
 io.on("connection", (socket) => {
   console.log("Usuário conectado!", socket.id);
 
+  io.emit("user_count", io.engine.clientsCount);
+
   socket.on("disconnect", () => {
     console.log("Usuário desconectado!", socket.id);
   });
